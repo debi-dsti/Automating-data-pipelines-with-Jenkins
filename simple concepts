@@ -1,0 +1,19 @@
+ run and validate machine learning models; and work closely with our DevOps/Infrastructure team to maintain our databases.
+As it happens in other start-ups, as we grow rapidly it becomes more and more important to automate routine (and indeed boring) tasks, which take away precious development time from our core developers, but also from us data scientists.
+While automation tools have long been used in software development teams, the increasing complexity of data science cycles has made clear the need for workflow management tools that automate these processes. No surprise then that both Spotify and AirBnB have built (and even better, open-sourced!) internal tools with that aim: Luigi and Airflow.
+As part of our effort to iterate faster and promptly deliver our client requests, in the last couple of weeks I’ve spent some time working with the great automation tool we use, Jenkins, and in this post I’d like to give you a taste of how we use it in the Geoblink’s Data team.
+Jenkins is a well-known open-source automation software which supports a variety of features for continuous integration and continuous delivery. There are many reasons why we love Jenkins at Geoblink:
+Advanced job scheduling
+Support for Source Control Management
+Quality logging
+Dependency graphs
+Slack notifications
+Fully customizable with plugins
+Thriving open-source community
+And the list goes on and on, but the impact is always the same: a drastic increase in team productivity and a minimization of human errors.
+now i have Created a Jenkins jobs to handle tasks like:
+Database restores / backups
+Deploy new map styles to different environments
+Scheduled polling of API & data transformation followed by database updates
+Automated end-to-end tests of the web application
+Here we have an example of a Jenkins file, which defines a simple Jenkins pipeline with two stages: in the first stage, Jenkins launches a job that polls an API and formats the fetched data; in the second stage, a job is launched that loads that data into a database and performs the corresponding updates. The pipeline allows for parameters to be passed at runtime, in this case the parameter `DB_HOST` specifying the host where the database server runs. In turn, each of the build stages can be handled by scripts written in different scripting languages, such as bash or python.
